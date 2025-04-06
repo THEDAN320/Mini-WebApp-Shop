@@ -39,8 +39,7 @@ class Order(Base):
     def price_with_sale(cls) -> Any:
         """SQL expression for price with sale calculation."""
         return case(
-            (cls.sale == 0, cls.price),
-            else_=cls.price * (1 - cls.sale / 100)
+            (cls.sale == 0, cls.price), else_=cls.price * (1 - cls.sale / 100)
         )
 
     def __repr__(self) -> str:

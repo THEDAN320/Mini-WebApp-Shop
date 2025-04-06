@@ -12,9 +12,11 @@ class Good(Base, TimestampMixin):
     name: Mapped[str] = mapped_column(String, nullable=False)
     price: Mapped[float] = mapped_column(Float, nullable=False)
     count: Mapped[int] = mapped_column(Integer, nullable=False)
-    url: Mapped[str] = mapped_column(String, nullable=True)
-    type: Mapped[str] = mapped_column(String, nullable=False)
-    description: Mapped[str] = mapped_column(String, nullable=True)
+    url: Mapped[str] = mapped_column(String, nullable=False, default="")
+    type: Mapped[str] = mapped_column(String, nullable=False, default="")
+    description: Mapped[str] = mapped_column(
+        String, nullable=False, default=""
+    )
 
     def __repr__(self) -> str:
         return f"<Good id={self.id}>"

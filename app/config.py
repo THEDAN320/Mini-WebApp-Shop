@@ -47,7 +47,7 @@ class BackendSettings(BaseSettings):
             password=values.get("POSTGRES_PASSWORD"),
             host=values.get("POSTGRES_HOST"),
             port=values.get("POSTGRES_PORT"),
-            path=values.get('POSTGRES_DB'),
+            path=values.get("POSTGRES_DB"),
         )
         return str(result)
 
