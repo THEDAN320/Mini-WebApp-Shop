@@ -21,6 +21,11 @@ bot = [
     "aiogram-dialog>=2.3.1",
 ]
 backend = [
+    "alembic>=1.15.2",
+    "asyncpg>=0.30.0",
     "fastapi[standard]>=0.115.12",
     "sqlalchemy>=2.0.40",
 ]
+
+[tool.ruff]
+line-length = 79

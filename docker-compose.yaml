@@ -7,3 +7,39 @@ services:
       - .env
     volumes:
       - .:/bot
+    depends_on:
+      - miniapp_backend_dev
+  
+  miniapp_db_dev:
+    container_name: "miniapp_db_dev"
+    image: postgres:16
+    volumes:
+      - ./pg_db_dev:/miniapp_db
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      TZ: "Etc/UTC"
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
+    ports:
+      - "5433:5432"
+    networks:
+      - net_dev
+  
+  miniapp_backend_dev:
+    build:
+      context: .
+      dockerfile: app/Dockerfile
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    networks:
+      - net_dev
+    depends_on:
+      - miniapp_db_dev
+      
+
+networks:
+  net_dev:
+    driver: bridge

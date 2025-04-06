@@ -23,6 +23,7 @@ class BotSettings(BaseSettings):
         env_file=[".env", ".env_dev"],
         env_file_encoding="utf-8",
         case_sensitive=True,
+        extra="allow"
     )
 
 

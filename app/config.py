@@ -1,5 +1,4 @@
 from functools import lru_cache
-from typing import cast
 
 from pydantic import PostgresDsn, field_validator, ValidationInfo
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -12,20 +11,20 @@ class BackendSettings(BaseSettings):
     database connection details.
 
     Attributes:
-        DB_NAME: PostgreSQL database name
-        DB_USER: Database user
-        DB_PASS: Database password
-        DB_HOST: Database host
-        DB_PORT: Database port
+        POSTGRES_DB: PostgreSQL database name
+        POSTGRES_USER: Database user
+        POSTGRES_PASSWORD: Database password
+        POSTGRES_HOST: Database host
+        POSTGRES_PORT: Database port
         DATABASE_URL: Constructed database URL (optional)
     """
 
     # Database settings
-    DB_NAME: str | None = None
-    DB_USER: str | None = None
-    DB_PASS: str | None = None
-    DB_HOST: str | None = None
-    DB_PORT: str | None = None
+    POSTGRES_DB: str | None = None
+    POSTGRES_USER: str | None = None
+    POSTGRES_PASSWORD: str | None = None
+    POSTGRES_HOST: str | None = None
+    POSTGRES_PORT: int | None = None
     DATABASE_URL: str = ""
 
     @field_validator("DATABASE_URL")
@@ -42,23 +41,21 @@ class BackendSettings(BaseSettings):
         if isinstance(v, str) and v:
             return v
         values = info.data
-        result = cast(
-            str,
-            PostgresDsn.build(
-                scheme="postgresql+asyncpg",
-                username=values.get("DB_USER"),
-                password=values.get("DB_PASS"),
-                host=values.get("DB_HOST"),
-                port=values.get("DB_PORT"),
-                path=f"/{values.get('DB_NAME')}",
-            ),
+        result = PostgresDsn.build(
+            scheme="postgresql+asyncpg",
+            username=values.get("POSTGRES_USER"),
+            password=values.get("POSTGRES_PASSWORD"),
+            host=values.get("POSTGRES_HOST"),
+            port=values.get("POSTGRES_PORT"),
+            path=values.get('POSTGRES_DB'),
         )
-        return result
+        return str(result)
 
     model_config = SettingsConfigDict(
         env_file=[".env", ".env_dev"],
         env_file_encoding="utf-8",
         case_sensitive=True,
+        extra="allow",
     )
 
 
