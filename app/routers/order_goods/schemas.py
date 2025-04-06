@@ -1,10 +1,10 @@
 from datetime import datetime
 
+from core.schemas import BaseSchema, PaginationSchema
 from pydantic import field_validator
 
 from app.routers.goods.schemas import GoodSchema
 from app.routers.orders.schemas import OrderSchema
-from core.schemas import BaseSchema, PaginationSchema
 
 
 class OrderGoodsSchema(BaseSchema):
