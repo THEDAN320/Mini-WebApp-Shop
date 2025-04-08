@@ -9,7 +9,7 @@ services:
       - .:/bot
     depends_on:
       - miniapp_backend_dev
-  
+
   miniapp_db_dev:
     container_name: "miniapp_db_dev"
     image: postgres:16
@@ -25,20 +25,22 @@ services:
       - "5433:5432"
     networks:
       - net_dev
-  
+
   miniapp_backend_dev:
     build:
       context: .
-      dockerfile: app/Dockerfile
+      dockerfile: backend/Dockerfile
     env_file:
       - .env
     ports:
       - "8000:8000"
+    volumes:
+      - .:/backend
     networks:
       - net_dev
     depends_on:
       - miniapp_db_dev
-      
+
 
 networks:
   net_dev:

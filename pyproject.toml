@@ -5,7 +5,7 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "pydantic-settings>=2.0.0",
+    "pydantic-settings>=2.8.1",
 ]
 
 [dependency-groups]
@@ -14,17 +14,16 @@ dev = [
     "isort>=6.0.1",
     "mypy>=1.15.0",
     "pre-commit>=4.2.0",
-    "sqlalchemy[mypy]>=2.0.40",
 ]
 bot = [
-    "aiogram>=3.19.0",
     "aiogram-dialog>=2.3.1",
+    "aiogram>=3.19.0",
 ]
 backend = [
     "alembic>=1.15.2",
     "asyncpg>=0.30.0",
     "fastapi[standard]>=0.115.12",
-    "sqlalchemy>=2.0.40",
+    "sqlalchemy[mypy]>=2.0.40",
 ]
 
 [tool.ruff]
