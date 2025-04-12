@@ -1,0 +1,251 @@
+/* Общие настройки */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Raleway', sans-serif;
+    background-color: #FFFFFF; /* Цвет фона страницы */
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+}
+
+/* Header */
+.header {
+    background-color: #514B30; /* Цвет фона Header */
+}
+
+/* Логотип */
+.header__logo {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Расстояние между логотипом и текстом */
+}
+
+.header__logo-image {
+    width: 117px;
+    height: 117px;
+    object-fit: contain;
+}
+
+.header__logo-text {
+    font-size: 24px;
+    font-weight: 800; /* ExtraBold */
+    color: #DA7138;
+}
+
+/* Навигация */
+.header__nav {
+    display: flex;
+    gap: 20px; /* Расстояние между ссылками */
+}
+
+.header__nav-link {
+    font-size: 32px;
+    font-weight: 800; /* ExtraBold */
+    color: #F9E5C1;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.header__nav-link:hover {
+    color: #FFFFFF; /* Изменение цвета при наведении мыши */
+}
+
+/* Hero Section */
+.hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px 0;
+}
+
+.hero__content {
+    flex-basis: 45%; /* Ширина блока с текстом */
+}
+
+.hero__title {
+    font-size: 90px;
+    font-weight: 800; /* ExtraBold */
+    color: #DA7138;
+    margin-bottom: 20px;
+}
+
+.hero__subtitle {
+    font-size: 25px;
+    font-weight: 600; /* SemiBold */
+    color: #514B30;
+    line-height: 1.6; /* Улучшение читаемости */
+}
+
+.hero__image {
+    flex-basis: 45%; /* Ширина изображения */
+    width: 772.5px;
+    height: 618px;
+    object-fit: contain;
+}
+
+/* Каталог */
+.catalog {
+    padding: 50px 0;
+}
+
+.catalog__title {
+    font-size: 80px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 800;
+    color: #514B30;
+    text-align: center;
+    margin-bottom: 50px;
+	display: grid;
+}
+
+.catalog__items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px; /* Отступы между карточками */
+}
+
+.catalog__item {
+    width: calc(33.33% - 20px); /* Ширина каждой карточки */
+    background-color: #918E7D;
+    border-radius: 27px;
+    overflow: hidden;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box; /* Убедитесь, что padding не увеличивает ширину */
+}
+
+.catalog__item-image {
+    width: 100%; /* Изменено на 100%, чтобы изображение занимало всю ширину карточки */
+    height: auto; /* Высота автоматически подстраивается под пропорции */
+    object-fit: contain;
+    margin-bottom: 15px;
+}
+
+.catalog__item-name {
+    font-size: 20px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600; /* SemiBold */
+    color: #FFFFFF;
+    margin-bottom: 10px;
+}
+
+.catalog__item-price {
+    font-size: 22px;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 600;
+    color: #FFFFFF;
+    margin-bottom: 20px;
+}
+
+.catalog__item-currency {
+    font-size: 19px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+    color: #FFFFFF;
+}
+
+.catalog__item-button {
+    width: 225px;
+    height: 45px;
+    background-color: #1E1E1E;
+    border: none;
+    border-radius: 50px;
+    color: #FFFFFF;
+    font-size: 25px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+
+.about {
+    padding: 50px 0;
+}
+
+.about__title {
+    font-size: 80px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 800;
+    color: #DA7138;
+    text-align: center;
+    margin-bottom: 50px;
+	display: grid;
+}
+
+.about__content {
+    display: flex;
+    align-items: flex-start;
+    gap: 50px;
+}
+
+
+/*.about__image {
+    width: 640px;
+    height: 640px;
+    object-fit: cover;
+    overflow: hidden;
+    position: relative;
+    left: -100px;
+}*/
+
+.about__text {
+    font-size: 25px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 800;
+    color: #514B30;
+    line-height: 1.6;
+}
+
+.about__highlight {
+    color: #DA7138;
+}
+
+
+.footer {
+    background-color: #514B30;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.footer__copyright {
+    font-size: 25px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 800;
+    color: #F9E5C1;
+    margin-bottom: 10px;
+}
+
+.footer__telegram {
+    font-size: 25px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 800;
+    color: #F9E5C1;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer__telegram:hover {
+    color: #FFFFFF;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
