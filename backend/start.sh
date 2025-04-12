@@ -13,4 +13,4 @@ echo "Running database migrations..."
 
 # Start the application
 echo "Starting the application..."
-exec /dev_backend/.venv/bin/fastapi run main.py --port 8000 --host 0.0.0.0
+exec /dev_backend/.venv/bin/fastapi run main.py --port 8000 --host 0.0.0.0 --reload

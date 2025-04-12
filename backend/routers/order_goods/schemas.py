@@ -1,19 +1,21 @@
 from datetime import datetime
 
-from app.routers.goods.schemas import GoodSchema
-from app.routers.orders.schemas import OrderSchema
+from routers.goods.schemas import GoodSchema
+from routers.orders.schemas import OrderSchema
 from core.schemas import BaseSchema, PaginationSchema
-from pydantic import field_validator
+from pydantic import field_validator, ConfigDict
 
 
 class OrderGoodsSchema(BaseSchema):
+    model_config = ConfigDict(from_attributes=True)
+
     id: int
     order_id: int
     good_id: int
     count: int
     price: float
 
-    order: OrderSchema
+    order: "OrderSchema"
     good: GoodSchema
 
     created_at: datetime
@@ -50,3 +52,10 @@ class OrderGoodssListSchema(BaseSchema):
 
 class OrderGoodssPaginationSchema(PaginationSchema):
     pass
+
+
+class OrderGoodssSearchSchema(BaseSchema):
+    id: int | None
+    order_id: int | None
+    good_id: int | None
+    count: int | None

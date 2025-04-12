@@ -57,3 +57,11 @@ class GoodsListSchema(BaseSchema):
 
 class GoodsPaginationSchema(PaginationSchema):
     pass
+
+
+class GoodsSearchSchema(BaseSchema):
+    id: int | None
+    article: str | None
+    name: str | None
+    price: float | None
+    count: int | None

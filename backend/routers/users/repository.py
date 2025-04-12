@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, UTC
 from typing import Any
 
 from models.src.modules.users import User
@@ -59,7 +59,7 @@ def get_ordering_Users(
 
 class UserRepository(BaseRepository[User]):
     async def delete(self, db: AsyncSession, item_id: int) -> int | None:
-        current_timestamp = datetime.utcnow()
+        current_timestamp = datetime.now(UTC)
         data = {"deleted_at": current_timestamp}
         query = (
             update(self.model)

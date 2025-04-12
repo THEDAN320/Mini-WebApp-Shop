@@ -1,18 +1,23 @@
 from datetime import datetime
 
 from core.schemas import BaseSchema, PaginationSchema
-from pydantic import field_validator
-from routers.order_goods.schemas import OrderGoodsSchema
+from pydantic import field_validator, ConfigDict
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from routers.order_goods.schemas import OrderGoodsSchema
 
 
 class OrderSchema(BaseSchema):
+    model_config = ConfigDict(from_attributes=True)
+
     id: int
     user_id: int
     price: float
     sale: float
     is_paid: bool
 
-    goods: list[OrderGoodsSchema]
+    goods: list["OrderGoodsSchema"]
 
     created_at: datetime
 
@@ -46,3 +51,11 @@ class OrdersListSchema(BaseSchema):
 
 class OrdersPaginationSchema(PaginationSchema):
     pass
+
+
+class OrdersSearchSchema(BaseSchema):
+    id: int | None
+    user_id: int | None
+    price: float | None
+    sale: float | None
+    is_paid: bool | None

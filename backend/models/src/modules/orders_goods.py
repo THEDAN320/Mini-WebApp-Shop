@@ -1,4 +1,5 @@
-from models.src import Good, Order
+from models.src.modules.goods import Good
+from models.src.modules.orders import Order
 from models.src.models import Base, TimestampMixin
 from sqlalchemy import Float, ForeignKey, Integer
 from sqlalchemy.orm import Mapped, mapped_column, relationship

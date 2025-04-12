@@ -1,7 +1,7 @@
 from datetime import UTC, datetime
 from typing import Any
 
-from models.src import User
+from models.src.modules.users import User
 from models.src.models import Base
 from sqlalchemy import Boolean, DateTime, Float, ForeignKey, Integer, case
 from sqlalchemy.ext.hybrid import hybrid_property
