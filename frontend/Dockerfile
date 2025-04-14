@@ -1,16 +1,13 @@
-FROM node:18-alpine
+# build stage
+FROM node:18.17.1-buster
+
+# ARG api_root
+# ENV VUE_APP_API_ROOT=${api_root}
 
 WORKDIR /miniapp_frontend
-
-COPY /frontend/package*.json ./
-
+COPY frontend/ ./
 RUN npm install
-
-COPY /frontend .
-
-ENV VITE_DISABLE_DEVTOOLS=true
-ENV CHOKIDAR_USEPOLLING=true
 
 EXPOSE 5173
 
-CMD ["npm", "run", "dev", "--", "--host", "--port", "5173"]
+CMD ["npm", "run", "serve", "--", "--port", "5173"]
