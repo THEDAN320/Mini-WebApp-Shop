@@ -7,7 +7,7 @@
   >
     <template v-slot:tbody>
       <tr
-        v-for="row in getGoods"
+        v-for="row in getUsers"
         :key="row.id"
         class="odd:bg-white even:bg-gray-50 hover:bg-gray-100"
       >
@@ -17,25 +17,19 @@
           </div>
         </td>
         <td class="px-2 py-1.5">
-          <div class="">{{ row.name }}</div>
+          <div class="">{{ row.telegram_id }}</div>
         </td>
         <td class="px-2 py-1.5">
-          <div class="">{{ row.article }}</div>
+          <div class="">{{ row.username }}</div>
         </td>
         <td class="px-2 py-1.5">
-          <div class="">{{ row.type }}</div>
+          <div class="">{{ row.phone }}</div>
         </td>
         <td class="px-2 py-1.5">
-          <div class="">{{ row.description }}</div>
+          <div class="">{{ row.sale }}</div>
         </td>
         <td class="px-2 py-1.5">
-          <div class="">{{ row.price }}</div>
-        </td>
-        <td class="px-2 py-1.5">
-          <div class="">{{ row.count }}</div>
-        </td>
-        <td class="px-2 py-1.5">
-          <div class="">{{ row.url }}</div>
+          <div class="">{{ row.address }}</div>
         </td>
 
         <td class="px-2 py-1.5">
@@ -69,14 +63,14 @@
           </div>
         </td>
       </tr>
-      <tr v-if="!getGoods || getGoods.length === 0">
+      <tr v-if="!getUsers || getUsers.length === 0">
         <td colspan="3" class="p-6 text-center text-gray-500">Нет данных</td>
       </tr>
     </template>
 
     <template v-slot:footer>
       <div class="my-3 flex items-center justify-start gap-2 sm:auto-cols-max sm:justify-end">
-        <span>Всего: {{ totalGoods }}</span>
+        <span>Всего: {{ totalUsers }}</span>
         <Pagination v-model="pageNumber" :pages="pageCount" @update:modelValue="handlePageChange" />
       </div>
     </template>
@@ -90,7 +84,7 @@
     @close-modal="toggleModal(false)"
   >
     <template v-slot:content>
-      <GoodsFormChange
+      <UsersFormChange
         :init-data="initData"
         @success="handleFormSuccess"
         @cancel="toggleModal(false)"
@@ -109,7 +103,7 @@ import { PencilSharp, TrashOutline } from "@vicons/ionicons5";
 import { TableWithOrdering, IColumnData } from "@/modules/common/components/TableWithOrdering";
 import DropdownEditMenu from "@/modules/common/components/DropdownEditMenu.vue";
 import ModalView from "@/modules/common/components/ModalView.vue";
-import GoodsFormChange from "./goodsFormChange.vue";
+import UsersFormChange from "./usersFormChange.vue";
 import Pagination from "@/modules/common/components/Pagination";
 
 import { formateLocalDataTime } from "@/modules/common/utils/date-time";
@@ -128,7 +122,7 @@ export default defineComponent({
     PencilSharp,
     TrashOutline,
     ModalView,
-    GoodsFormChange,
+    UsersFormChange,
     Pagination,
   },
   setup() {
@@ -156,38 +150,28 @@ export default defineComponent({
         isSortable: true,
       },
       {
-        title: "Название",
-        key: "name",
+        title: "Телеграм айди",
+        key: "telegram_id",
         isSortable: true,
       },
       {
-        title: "Артикул",
-        key: "article",
+        title: "Юзернейм",
+        key: "username",
         isSortable: true,
       },
       {
-        title: "Тип",
-        key: "type",
+        title: "Скидка",
+        key: "sale",
         isSortable: true,
       },
       {
-        title: "Описание",
-        key: "description",
+        title: "Телефон",
+        key: "phone",
         isSortable: true,
       },
       {
-        title: "Цена",
-        key: "price",
-        isSortable: true,
-      },
-      {
-        title: "Количество",
-        key: "count",
-        isSortable: true,
-      },
-      {
-        title: "Ссылка",
-        key: "url",
+        title: "Адрес",
+        key: "address",
         isSortable: true,
       },
       {
@@ -201,19 +185,19 @@ export default defineComponent({
     const toggleModal = (status: boolean) => (addModalOpen.value = status);
     const initData = ref();
 
-    const getGoods = computed(() => {
-      const goods = store.getters["goods/GET_ALL_GOODS"];
-      return goods;
+    const getUsers = computed(() => {
+      const users = store.getters["users/GET_ALL_USERS"];
+      return users;
     });
 
-    const totalGoods = computed(() => {
-      const total = store.getters["goods/GET_TOTAL_ALL_GOODS"];
+    const totalUsers = computed(() => {
+      const total = store.getters["users/GET_TOTAL_ALL_USERS"];
       return total;
     });
 
-    const fetchGoods = async (totalShowObjs: number, currentPage: number) => {
+    const fetchUsers = async (totalShowObjs: number, currentPage: number) => {
       try {
-        const response = await store.dispatch("goods/FETCH_ALL_GOODS", {
+        const response = await store.dispatch("users/FETCH_ALL_USERS", {
           pagi: {
             limit: 20,
             offset: currentPage > 0 ? currentPage - 1 : 0,
@@ -231,16 +215,16 @@ export default defineComponent({
       }
     };
 
-    const deleteGoods = async (id: number) => {
+    const deleteUsers = async (id: number) => {
       try {
-        await store.dispatch("goods/DELETE_GOODS", id);
-        dispatchNotification("success", "Успешно", "Товар успешно удален", true, 3000);
+        await store.dispatch("users/DELETE_USERS", id);
+        dispatchNotification("success", "Успешно", "пользователь успешно удален", true, 3000);
         getDataForTable(); // Обновляем данные после удаления
       } catch (error) {
         dispatchNotification(
           "error",
           "Ошибка",
-          "Не удалось удалить товар. Пожалуйста, попробуйте позже.",
+          "Не удалось удалить пользователя. Пожалуйста, попробуйте позже.",
           true,
           5000,
         );
@@ -254,8 +238,8 @@ export default defineComponent({
         const currentPageSize = Math.max(Number(pageSize.value) || 20, 1);
         const currentPage = Math.max(Number(pageNumber.value) || 1, 1);
 
-        await fetchGoods(currentPageSize, currentPage).then(() => {
-          const total = Number(totalGoods.value) || 0;
+        await fetchUsers(currentPageSize, currentPage).then(() => {
+          const total = Number(totalUsers.value) || 0;
           if (total > 0) {
             pageCount.value = Math.max(Math.ceil(total / currentPageSize), 1);
           } else {
@@ -276,18 +260,15 @@ export default defineComponent({
     const openModalAdd = (row: any) => {
       initData.value = {
         id: row.id,
-        name: row.name,
-        article: row.article,
-        type: row.type,
-        description: row.description,
-        price: row.price,
-        count: row.count,
-        url: row.url,
+        username: row.username,
+        sale: row.sale,
+        phone: row.phone,
+        address: row.address,
       };
       addModalOpen.value = true;
     };
     const deleteRow = async (row: any) => {
-      await deleteGoods(row.id);
+      await deleteUsers(row.id);
     };
     watch(pageCount, (currentValue: any, oldValue: any) => {
       if (currentValue < 1) {
@@ -330,13 +311,13 @@ export default defineComponent({
 
     return {
       formateLocalDataTime,
-      getGoods,
+      getUsers,
       addModalOpen,
       toggleModal,
       initData,
       openModalAdd,
       deleteRow,
-      totalGoods,
+      totalUsers,
       pageCount,
       handlePageChange,
       handleFormSuccess,

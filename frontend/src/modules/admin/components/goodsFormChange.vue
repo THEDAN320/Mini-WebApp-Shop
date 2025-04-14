@@ -21,18 +21,20 @@
       <n-form-item label="Цена" path="price">
         <n-input-number
           v-model:value="formValue.price"
-          placeholder="Введите цену"
           :min="0"
           :precision="2"
+          :show-button="false"
+          placeholder="Введите цену"
         />
       </n-form-item>
 
       <n-form-item label="Количество" path="count">
         <n-input-number
           v-model:value="formValue.count"
-          placeholder="Введите количество"
           :min="0"
           :precision="0"
+          :show-button="false"
+          placeholder="Введите количество"
         />
       </n-form-item>
 
@@ -63,7 +65,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { ref, computed, defineProps, defineEmits, watch } from "vue";
 import { useStore } from "vuex";
 import { NForm, NFormItem, NInput, NInputNumber, NButton, FormInst, FormRules } from "naive-ui";
 import { dispatchNotification } from "@/modules/common/utils/notifications";
@@ -93,8 +95,8 @@ const loading = ref(false);
 const formValue = ref({
   name: props.initData?.name || "",
   article: props.initData?.article || "",
-  price: props.initData?.price || 0,
-  count: props.initData?.count || 0,
+  price: props.initData?.price ?? 0,
+  count: props.initData?.count ?? 0,
   type: props.initData?.type || "",
   url: props.initData?.url || "",
   description: props.initData?.description || "",
@@ -109,16 +111,6 @@ const rules: FormRules = {
   article: {
     required: true,
     message: "Введите артикул",
-    trigger: ["blur", "input"],
-  },
-  price: {
-    required: true,
-    message: "Введите цену",
-    trigger: ["blur", "input"],
-  },
-  count: {
-    required: true,
-    message: "Введите количество",
     trigger: ["blur", "input"],
   },
   type: {
@@ -136,12 +128,18 @@ const handleSubmit = async () => {
     loading.value = true;
 
     const payload = {
-      ...formValue.value,
+      name: formValue.value.name,
+      article: formValue.value.article,
+      price: Number(formValue.value.price),
+      count: Number(formValue.value.count),
+      type: formValue.value.type,
+      url: formValue.value.url,
+      description: formValue.value.description,
     };
 
     if (props.initData?.id) {
       // Обновление существующего товара
-      const response = await store.dispatch("admin/UPDATE_GOODS", {
+      const response = await store.dispatch("goods/UPDATE_GOODS", {
         id: props.initData.id,
         ...payload,
       });
@@ -151,14 +149,13 @@ const handleSubmit = async () => {
       }
     } else {
       // Создание нового товара
-      const response = await store.dispatch("admin/CREATE_GOODS", payload);
+      const response = await store.dispatch("goods/CREATE_GOODS", payload);
       if (response) {
         dispatchNotification("success", "Успешно", "Товар успешно создан", true, 3000);
         emit("success");
       }
     }
   } catch (error) {
-    console.error("Form validation or submission error:", error);
     dispatchNotification("error", "Ошибка", "Произошла ошибка при сохранении товара", true, 5000);
   } finally {
     loading.value = false;

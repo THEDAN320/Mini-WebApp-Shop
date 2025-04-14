@@ -1,7 +1,6 @@
 from datetime import datetime
 
 from routers.goods.schemas import GoodSchema
-from routers.orders.schemas import OrderSchema
 from core.schemas import BaseSchema, PaginationSchema
 from pydantic import field_validator, ConfigDict
 
@@ -15,7 +14,6 @@ class OrderGoodsSchema(BaseSchema):
     count: int
     price: float
 
-    order: "OrderSchema"
     good: GoodSchema
 
     created_at: datetime

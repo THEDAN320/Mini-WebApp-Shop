@@ -260,7 +260,7 @@ export default {
         children: [
           {
             name: "Товары",
-            url: "/admin/goods/",
+            url: "/admin/",
             access: true,
           },
           {

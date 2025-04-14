@@ -28,3 +28,4 @@ backend = [
 
 [tool.ruff]
 line-length = 79
+exclude = ["frontend/", "backend/models/alembic"]

@@ -1,5 +1,4 @@
 import { getAllGoods, createGood, updateGood, deleteGood, getGoodById } from "@/modules/admin/api";
-import { dispatchNotification } from "@/modules/common/utils/notifications";
 
 export default {
   namespaced: true,

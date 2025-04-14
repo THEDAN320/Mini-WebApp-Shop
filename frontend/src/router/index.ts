@@ -15,6 +15,16 @@ const routes: Array<RouteRecordRaw> = [
     name: "admin",
     component: () => import("@/modules/admin/pages/adminPanel.vue"),
   },
+  {
+    path: "/admin/users",
+    name: "users",
+    component: () => import("@/modules/admin/pages/usersPanel.vue"),
+  },
+  {
+    path: "/admin/orders",
+    name: "orders",
+    component: () => import("@/modules/admin/pages/ordersPanel.vue"),
+  },
 ];
 
 const router = createRouter({

@@ -1,3 +1,8 @@
+from fastapi import HTTPException
+from routers.orders.schemas import CreateOrderSchema
+from routers.goods.repository import Good_repository
+from routers.orders.dal import OrderDAL
+from routers.users.repository import User_repository
 from config import get_backend_settings
 from core.dal import BaseDAL
 from models.src.modules.orders_goods import OrderGoods
@@ -61,6 +66,21 @@ class OrderGoodsDAL(
         db: AsyncSession, data: CreateOrderGoodsSchema
     ) -> OrderGoodsSchema:
         current_data = data.model_dump()
+        user_id = current_data.pop("user_id")
+        user = await User_repository.get(db, user_id)
+        if user is None:
+            raise HTTPException(status_code=404, detail="User not found")
+
+        order = await OrderDAL.create(
+            db, CreateOrderSchema.model_validate({"user_id": user_id})
+        )
+        current_data["order_id"] = order.id
+
+        good = await Good_repository.get(db, current_data["good_id"])
+        if good is None:
+            raise HTTPException(status_code=404, detail="Good not found")
+
+        current_data["price"] = good.price
         item = await OrderGoods_repository.create(db, current_data)
         return OrderGoodsSchema.model_validate(item)
 

@@ -16,7 +16,7 @@ export async function deleteGood(good_id: number) {
 }
 
 export async function updateGood(good_id: number, data: any) {
-  const res = await axiosPublic.get(`/api/v1/goods/${good_id}/`);
+  const res = await axiosPublic.patch(`/api/v1/goods/${good_id}/`, data);
   return res;
 }
 
