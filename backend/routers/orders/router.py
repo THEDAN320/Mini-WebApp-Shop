@@ -52,6 +52,14 @@ async def update_Order(
     return await OrderDAL.update(db, item_id, data)
 
 
+@Orders_router.patch("/{item_id}/close")
+async def close_Order(
+    user_id: int,
+    db: AsyncSession = Depends(get_db),
+) -> OrderSchema:
+    return await OrderDAL.close(db, user_id)
+
+
 @Orders_router.delete("/{item_id}/")
 async def delete_Order(
     item_id: int,

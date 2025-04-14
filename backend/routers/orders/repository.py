@@ -4,6 +4,17 @@ from models.src.modules.orders import Order
 from models.src.repository import BaseRepository
 
 
+def get_search_row_Orders(
+    query: Any,
+    search_data: dict[str, Any] | None,
+) -> Any:
+    if search_data:
+        if "is_paid" in search_data:
+            query = query.where(Order.is_paid == search_data["is_paid"])
+
+    return query
+
+
 def get_ordering_Orders(
     self: Any,
     query: Any,

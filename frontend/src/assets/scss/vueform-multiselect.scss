@@ -1,0 +1,43 @@
+@import "@vueform/multiselect/themes/default.css";
+
+.multiselect {
+  font-size: 14px;
+  min-height: 34px;
+  // height: 34px;
+
+  &.is-active {
+    box-shadow: none;
+  }
+
+  .multiselect-wrapper {
+    min-height: 34px;
+
+    .multiselect-search {
+      padding-left: 12px;
+    }
+
+    .multiselect-placeholder {
+      padding-left: 12px;
+    }
+
+    .multiselect-single-label {
+      padding-left: 12px;
+    }
+  }
+
+  .multiselect-option {
+    font-size: 14px;
+    padding: 4px 4px;
+    margin: 4px;
+    border-radius: 4px;
+
+    white-space: pre-line;
+
+    &.multiselect-option.is-selected,
+    &.multiselect-option.is-selected.is-pointed {
+      background: #5b72f3;
+    }
+  }
+
+
+}

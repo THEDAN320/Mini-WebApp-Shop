@@ -104,7 +104,9 @@ class BaseRepository(Generic[ModelType]):
     def search_query(
         self, query: Any, search_data: dict[str, Any] | None
     ) -> Any:
-        return query
+        if search_data is None:
+            return query
+        return query.filter_by(**search_data)
 
     def ordering(
         self,

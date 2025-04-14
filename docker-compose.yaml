@@ -41,6 +41,21 @@ services:
     depends_on:
       - miniapp_db_dev
 
+  miniapp_frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/miniapp_frontend
+      - /miniapp_frontend/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - VITE_DISABLE_DEVTOOLS=true
+    networks:
+      - net_dev
+
 
 networks:
   net_dev:

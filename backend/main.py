@@ -27,7 +27,7 @@ def create_backend_app() -> FastAPI:
     v1_api_router.include_router(
         OrderGoodss_router, prefix="/order_goods", tags=["OrderGoods"]
     )
-    app.include_router(v1_api_router, prefix="/v1")
+    app.include_router(v1_api_router, prefix="/api/v1")
 
     app.add_middleware(
         CORSMiddleware,

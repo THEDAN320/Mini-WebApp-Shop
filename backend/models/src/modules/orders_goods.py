@@ -1,5 +1,4 @@
 from models.src.modules.goods import Good
-from models.src.modules.orders import Order
 from models.src.models import Base, TimestampMixin
 from sqlalchemy import Float, ForeignKey, Integer
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -18,7 +17,6 @@ class OrderGoods(Base, TimestampMixin):
     count: Mapped[int] = mapped_column(Integer, nullable=False)
     price: Mapped[float] = mapped_column(Float, nullable=False)
 
-    order: Mapped[Order] = relationship(Order, lazy="selectin")
     good: Mapped[Good] = relationship(Good, lazy="selectin")
 
     def __repr__(self) -> str:

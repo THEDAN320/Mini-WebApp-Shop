@@ -43,7 +43,7 @@ class TimestampMixin:
         onupdate=lambda: datetime.now(UTC),
     )
 
-    deleted_at: Mapped[datetime] = mapped_column(
+    deleted_at: Mapped[datetime | None] = mapped_column(
         TIMESTAMP(timezone=True),
         nullable=True,
         default=None,
