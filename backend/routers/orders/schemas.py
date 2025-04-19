@@ -52,8 +52,9 @@ class OrdersPaginationSchema(PaginationSchema):
 
 
 class OrdersSearchSchema(BaseSchema):
-    id: int | None
-    user_id: int | None
-    price: float | None
-    sale: float | None
-    is_paid: bool | None
+    id: int | None = None
+    user_id: int | None = None
+    price: float | None = None
+    sale: float | None = None
+    is_paid: bool | None = None
+    is_closed: bool | None = None

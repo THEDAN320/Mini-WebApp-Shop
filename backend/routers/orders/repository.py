@@ -11,6 +11,8 @@ def get_search_row_Orders(
     if search_data:
         if "is_paid" in search_data:
             query = query.where(Order.is_paid == search_data["is_paid"])
+        if "is_closed" in search_data:
+            query = query.where(Order.is_closed == search_data["is_closed"])
 
     return query
 

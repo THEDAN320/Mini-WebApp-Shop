@@ -7,18 +7,6 @@ from sqlalchemy import update
 from sqlalchemy.ext.asyncio import AsyncSession
 
 
-def get_search_row_OrderGoodss(
-    query: Any,
-    search_data: dict[str, Any] | None,
-) -> Any:
-    if search_data is None:
-        query = query.where(OrderGoods.deleted_at == None)  # noqa
-    else:
-        query = query.where(OrderGoods.deleted_at == None)  # noqa
-
-    return query
-
-
 def get_ordering_OrderGoodss(
     self: Any,
     query: Any,
@@ -70,11 +58,6 @@ class OrderGoodsRepository(BaseRepository[OrderGoods]):
         result = await db.execute(query)
         await db.commit()
         return result.scalars().first()
-
-    def search_query(
-        self, query: Any, search_data: dict[str, Any] | None
-    ) -> Any:
-        return get_search_row_OrderGoodss(query, search_data)
 
     def ordering(
         self,

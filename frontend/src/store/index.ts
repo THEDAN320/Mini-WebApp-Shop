@@ -4,6 +4,7 @@ import main from "@/modules/main/store";
 import goods from "@/modules/admin/store";
 import users from "@/modules/admin/store/users";
 import orders from "@/modules/admin/store/orders";
+import orderGoods from "@/modules/admin/store/order_good";
 
 const store = createStore({
   state: {},
@@ -16,6 +17,7 @@ const store = createStore({
     goods,
     users,
     orders,
+    orderGoods,
   },
 });
 

@@ -10,9 +10,10 @@
         <span class="header__logo-text">LISSE-SHOP</span>
       </div>
       <nav class="header__nav">
-        <a href="#catalog" class="header__nav-link">КАТАЛОГ</a>
-        <a href="#about" class="header__nav-link">О НАС</a>
-        <a href="#" class="header__nav-link">КОРЗИНА</a>
+        <a href="/" class="header__nav-link">О НАС</a>
+        <a href="/catalog" class="header__nav-link">КАТАЛОГ</a>
+        <a href="/cart" class="header__nav-link">КОРЗИНА</a>
+        <a href="/orders" class="header__nav-link">МОИ ЗАКАЗЫ</a>
       </nav>
     </div>
   </header>
@@ -27,22 +28,6 @@
         </p>
       </div>
       <img src="@/assets/images/airpods.png" alt="Беспроводные наушники" class="hero__image" />
-    </div>
-  </section>
-
-  <section class="catalog">
-    <div>
-      <h2 class="catalog__title" id="catalog">КАТАЛОГ</h2>
-    </div>
-    <div class="container">
-      <div class="catalog__items">
-        <div v-for="(item, index) in 6" :key="index" class="catalog__item">
-          <img src="@/assets/images/card.png" alt="AirPods Pro" class="catalog__item-image" />
-          <h3 class="catalog__item-name">AirPods Pro</h3>
-          <p class="catalog__item-price">1.999<span class="catalog__item-currency">₽</span></p>
-          <button class="catalog__item-button">в корзину</button>
-        </div>
-      </div>
     </div>
   </section>
 

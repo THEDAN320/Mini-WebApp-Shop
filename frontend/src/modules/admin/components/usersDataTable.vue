@@ -160,13 +160,13 @@ export default defineComponent({
         isSortable: true,
       },
       {
-        title: "Скидка",
-        key: "sale",
+        title: "Телефон",
+        key: "phone",
         isSortable: true,
       },
       {
-        title: "Телефон",
-        key: "phone",
+        title: "Скидка",
+        key: "sale",
         isSortable: true,
       },
       {
