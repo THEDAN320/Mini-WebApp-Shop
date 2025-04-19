@@ -49,7 +49,13 @@
               <p class="product-description">{{ product.description }}</p>
               <div class="product-footer">
                 <p class="product-price">{{ product.price }} ₽</p>
-                <button class="add-to-cart" @click="addToCart(product)">В корзину</button>
+                <button
+                  class="add-to-cart"
+                  :class="{ 'in-cart': isInCart(product.id) }"
+                  @click="addToCart(product)"
+                >
+                  {{ isInCart(product.id) ? "В корзине" : "В корзину" }}
+                </button>
               </div>
             </div>
           </div>
@@ -77,7 +83,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watch } from "vue";
+import { ref, onMounted, watch, computed } from "vue";
 import { NPagination, NEmpty } from "naive-ui";
 import { useStore } from "vuex";
 
@@ -103,6 +109,35 @@ interface Product {
 }
 
 const products = ref<Product[]>([]);
+const cartItems = ref<any[]>([]);
+
+// Function to check if a product is already in the cart
+const isInCart = (productId: number) => {
+  return cartItems.value.some((item) => item.good_id === productId);
+};
+
+const fetchCartItems = async () => {
+  try {
+    // Create order if needed
+    const order = await store.dispatch("orders/CREATE_ORDERS", {
+      user_id: 1,
+    });
+
+    // Fetch cart items
+    await store.dispatch("orderGoods/FETCH_ALL_ORDERGOODS", {
+      search_data: {
+        user_id: 1,
+        order_id: order.id,
+      },
+    });
+
+    // Get items from store
+    cartItems.value = store.getters["orderGoods/GET_ALL_ORDERGOODS"];
+  } catch (error) {
+    console.error("Error fetching cart items:", error);
+    cartItems.value = [];
+  }
+};
 
 const fetchProducts = async () => {
   loading.value = true;
@@ -118,6 +153,10 @@ const fetchProducts = async () => {
     products.value = store.getters["goods/GET_ALL_GOODS"];
     totalItems.value = store.getters["goods/GET_TOTAL_ALL_GOODS"];
     totalPages.value = Math.ceil(totalItems.value / pageSize.value);
+
+    // Refresh cart items to update UI
+    await fetchCartItems();
+
     console.log("Fetched products:", products.value);
   } catch (error) {
     console.error("Error fetching products:", error);
@@ -130,6 +169,13 @@ const fetchProducts = async () => {
 };
 
 const addToCart = async (product: Product) => {
+  // Check if product is already in cart
+  if (isInCart(product.id)) {
+    // Optionally redirect to cart page
+    window.location.href = "/cart";
+    return;
+  }
+
   try {
     const payload = {
       good_id: product.id,
@@ -139,6 +185,9 @@ const addToCart = async (product: Product) => {
     // Dispatch action to add to cart
     const result = await store.dispatch("orderGoods/CREATE_ORDERGOODS", payload);
     if (result) {
+      // Update cart items to reflect changes
+      await fetchCartItems();
+
       // You could add notification here if needed
       console.log("Product added to cart successfully:", product.name);
     }
@@ -291,6 +340,15 @@ onMounted(() => {
 
 .add-to-cart:hover {
   background: #e85a2c;
+}
+
+/* Add CSS styles for in-cart button */
+.add-to-cart.in-cart {
+  background: #4caf50;
+}
+
+.add-to-cart.in-cart:hover {
+  background: #3e8e41;
 }
 
 /* Loading State */
