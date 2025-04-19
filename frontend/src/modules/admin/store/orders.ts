@@ -4,6 +4,7 @@ import {
   updateOrder,
   deleteOrder,
   getOrderById,
+  closeOrder,
 } from "@/modules/admin/api/orders";
 
 export default {
@@ -86,6 +87,18 @@ export default {
         }
       } catch (error: any) {
         console.log(`Error UPDATE_ORDERS => ${error}`);
+        console.log(error.response);
+      }
+    },
+
+    async CLOSE_ORDERS(context: any, user_id: number) {
+      try {
+        const res = await closeOrder(user_id);
+        if (res.status === 200) {
+          return res.data;
+        }
+      } catch (error: any) {
+        console.log(`Error CLOSE_ORDERS => ${error}`);
         console.log(error.response);
       }
     },

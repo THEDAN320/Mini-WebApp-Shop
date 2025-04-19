@@ -20,6 +20,11 @@ export async function updateOrder(order_id: number, data: any) {
   return res;
 }
 
+export async function closeOrder(user_id: number) {
+  const res = await axiosPublic.patch(`/api/v1/orders/${user_id}/close/`);
+  return res;
+}
+
 export async function getOrderById(order_id: number) {
   const res = await axiosPublic.get(`/api/v1/orders/${order_id}/`);
   return res;

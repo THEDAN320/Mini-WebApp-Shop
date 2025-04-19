@@ -52,7 +52,7 @@ async def update_Order(
     return await OrderDAL.update(db, item_id, data)
 
 
-@Orders_router.patch("/{item_id}/close")
+@Orders_router.patch("/{user_id}/close")
 async def close_Order(
     user_id: int,
     db: AsyncSession = Depends(get_db),

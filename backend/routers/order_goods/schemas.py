@@ -35,8 +35,8 @@ class CreateOrderGoodsSchema(BaseSchema):
 
 
 class UpdateOrderGoodsSchema(BaseSchema):
-    count: int
-    price: float
+    count: int | None = None
+    price: float | None = None
 
 
 class DeleteOrderGoodsSchema(BaseSchema):
@@ -53,7 +53,7 @@ class OrderGoodssPaginationSchema(PaginationSchema):
 
 
 class OrderGoodssSearchSchema(BaseSchema):
-    id: int | None
-    order_id: int | None
-    good_id: int | None
-    count: int | None
+    id: int | None = None
+    order_id: int | None = None
+    good_id: int | None = None
+    count: int | None = None

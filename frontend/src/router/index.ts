@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
-import store from "@/store";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -24,6 +23,29 @@ const routes: Array<RouteRecordRaw> = [
     path: "/admin/orders",
     name: "orders",
     component: () => import("@/modules/admin/pages/ordersPanel.vue"),
+  },
+  {
+    path: "/catalog",
+    name: "catalog",
+    component: () => import("@/modules/catalog/pages/CatalogPage.vue"),
+    meta: {
+      title: "Каталог",
+      layout: "default",
+    },
+  },
+  {
+    path: "/cart",
+    name: "cart",
+    component: () => import("@/modules/cart/pages/CartPage.vue"),
+  },
+  {
+    path: "/orders",
+    name: "order-history",
+    component: () => import("@/modules/orders/pages/OrderHistoryPage.vue"),
+    meta: {
+      title: "История заказов",
+      layout: "default",
+    },
   },
 ];
 

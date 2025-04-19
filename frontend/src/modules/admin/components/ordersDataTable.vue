@@ -195,6 +195,9 @@ export default defineComponent({
             limit: 20,
             offset: currentPage > 0 ? currentPage - 1 : 0,
           },
+          search_data: {
+            is_closed: true,
+          },
         });
         return response;
       } catch (error) {
